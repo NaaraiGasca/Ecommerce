@@ -120,7 +120,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="panel.php?modulo=Usuarios" class="nav-link <?php echo ($modulo=="Usuarios"||$modulo=="")? "active": " "; ?> ">
+                <a href="panel.php?modulo=Usuarios" class="nav-link <?php echo ($modulo=="Usuarios"||$modulo=="CrearUsuario")? "active": " "; ?> ">
                   <i class="far fa-user nav-icon"  aria-hidden="true" ></i>
                   <p>Usuarios</p>
                 </a>
@@ -144,6 +144,19 @@
     <!-- /.sidebar -->
   </aside>
     <?php
+      if (isset($_REQUEST['mensaje']) ) 
+      {
+        ?>
+          <div class="alert alert-primary alert-dismissible fade show float-right" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <?php echo $_REQUEST['mensaje'] ?>
+          </div>
+        <?php
+      }
+
       if($modulo=="Estadisticas" || $modulo=="")
       {
         include_once "Estadisticas.php";
@@ -159,6 +172,10 @@
       if($modulo=="Ventas")
       {
         include_once "Ventas.php";
+      }
+      if ($modulo=="CrearUsuario") 
+      {
+        include_once "CrearUsuario.php";
       }
     ?>
   <!-- /.control-sidebar -->
