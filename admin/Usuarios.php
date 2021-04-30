@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Clientes</h1>
+            <h1>Administradores</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,7 +18,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tabla de visualizacion de los clientes registrados </h3>
+                <h3 class="card-title">Tabla de visualizacion de los administradores registrados </h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -27,7 +27,9 @@
                     <tr>
                       <th>Nombre</th>
                       <th>Email</th>
-                      <th>Acciones</th>
+                      <th>Acciones
+                        <a href="CrearUsuario.php"><i class="fa fa-plus " aria-hidden="true"></i></a>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -35,15 +37,16 @@
                       //Conexion con la bd
                       include_once "database.php";
                       $con = mysqli_connect($host, $user, $pass, $db);
-                      $query="SELECT Id, Email, Nombre FROM admin;"
+                      $query="SELECT Id, Email, Nombre FROM admin;";
                       $res=mysqli_query($con, $query);//Obtenemos el resultado del query
-                      while ($row=mysqli_fetch_assoc($res);) {//Mientras el row contenga registros
+                      while ($row=mysqli_fetch_assoc($res)) {//Mientras el row contenga registros
                         ?>
                           <tr>
                             <td><?php echo $row['Nombre'];?></td>
                             <td><?php echo $row['Email'];?></td>
                             <td>
-
+                              <a href="EditarUsuario.php?id=<?php echo $row['Id']?>" style="margin-right: 5px;"> <i class="fas fa-edit" ></i> </a><!--Puede ser Perfil en lugar de usuario-->
+                              <a href="Usuarios.php?idBorrar=<?php echo $row['Id']?>" class="text-danger"> <i class="fas fa-trash" ></i> </a>
                             </td>
                           </tr>
                         <?php
