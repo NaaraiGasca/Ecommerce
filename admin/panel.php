@@ -59,7 +59,7 @@
     <ul class="navbar-nav ml-auto">
 
       <!-- Messages Dropdown Menu -->
-        <a class="nav-link" href="EditarPerfil">
+        <a class="nav-link" href="panel.php?modulo=EditarUsuario&Id=<?php echo $_SESSION['Id']; ?>">
           <i class="far fa-user"></i>
         </a>
       <!-- Notifications Dropdown Menu -->
@@ -120,7 +120,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="panel.php?modulo=Usuarios" class="nav-link <?php echo ($modulo=="Usuarios"||$modulo=="CrearUsuario")? "active": " "; ?> ">
+                <a href="panel.php?modulo=Usuarios" class="nav-link <?php echo ($modulo=="Usuarios"||$modulo=="CrearUsuario"||$modulo="EditarUsuario")? "active": " "; ?> ">
                   <i class="far fa-user nav-icon"  aria-hidden="true" ></i>
                   <p>Usuarios</p>
                 </a>
@@ -176,6 +176,10 @@
       if ($modulo=="CrearUsuario") 
       {
         include_once "CrearUsuario.php";
+      }
+      if ($modulo=="EditarUsuario") 
+      {
+        include_once "EditarUsuario.php";
       }
     ?>
   <!-- /.control-sidebar -->

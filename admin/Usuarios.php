@@ -45,7 +45,7 @@
                             <td><?php echo $row['Nombre'];?></td>
                             <td><?php echo $row['Email'];?></td>
                             <td>
-                              <a href="EditarUsuario.php?id=<?php echo $row['Id']?>" style="margin-right: 5px;"> <i class="fas fa-edit" ></i> </a><!--Puede ser Perfil en lugar de usuario-->
+                              <a href="panel.php?modulo=EditarUsuario&id=<?php echo $row['Id']?>" style="margin-right: 5px;"> <i class="fas fa-edit" ></i> </a><!--Puede ser Perfil en lugar de usuario-->
                               <a href="Usuarios.php?idBorrar=<?php echo $row['Id']?>" class="text-danger"> <i class="fas fa-trash" ></i> </a>
                             </td>
                           </tr>
