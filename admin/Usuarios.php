@@ -5,15 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables HOLA Mi nombre es Naara 
-            Kevin me ayuda a trabajar jajaja 
-            Gracias kevin!!!</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
-            </ol>
+            <h1>Clientes</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -26,18 +18,16 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                <h3 class="card-title">Tabla de visualizacion de los clientes registrados </h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
