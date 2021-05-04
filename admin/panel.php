@@ -2,6 +2,13 @@
 <html>
   <?php
     session_start();
+    session_regenerate_id(true); 
+    if( isset($_REQUEST['sesion']) && $_REQUEST['sesion']=="cerrar" ) //PARA CERRAR LA SESION 
+    {
+      session_destroy();//Aunque se regrese ya no puede entrar 
+      header("location: index.php"); //Nos manda al area de login 
+    }
+
     if (isset($_SESSION['Id'])==false) {
       header("location: index.php");
     }
@@ -33,10 +40,16 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <!-- DataTables-->
+  <!--<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">-->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.0.3/css/dataTables.dateTime.min.css">
+  <link rel="stylesheet" href="css/editor.dataTables.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -62,7 +75,9 @@
         <a class="nav-link" href="panel.php?modulo=EditarUsuario&Id=<?php echo $_SESSION['Id']; ?>">
           <i class="far fa-user"></i>
         </a>
-      <!-- Notifications Dropdown Menu -->
+        <a class="nav-link text-danger" href="panel.php?modulo=&sesion=cerrar" title="Cerrar sesion">
+            <i class="fas fa-door-closed"></i>
+        </a>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -120,7 +135,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="panel.php?modulo=Usuarios" class="nav-link <?php echo ($modulo=="Usuarios"||$modulo=="CrearUsuario"||$modulo="EditarUsuario")? "active": " "; ?> ">
+                <a href="panel.php?modulo=Usuarios" class="nav-link <?php echo ($modulo=="Usuarios"||$modulo=="CrearUsuario")? "active": " "; ?> ">
                   <i class="far fa-user nav-icon"  aria-hidden="true" ></i>
                   <p>Usuarios</p>
                 </a>
@@ -156,7 +171,7 @@
           </div>
         <?php
       }
-
+//MODULOS DE LAS PAGINAS QUE USA EL ADMIN
       if($modulo=="Estadisticas" || $modulo=="")
       {
         include_once "Estadisticas.php";
@@ -180,6 +195,10 @@
       if ($modulo=="EditarUsuario") 
       {
         include_once "EditarUsuario.php";
+      }
+      if ($modulo=="Productos") 
+      {
+        include_once "Productos.php";
       }
     ?>
   <!-- /.control-sidebar -->
@@ -221,7 +240,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
   <!-- DataTables  & Plugins -->
-  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+  <!--<script src="plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
   <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
@@ -232,9 +251,15 @@
   <script src="plugins/pdfmake/vfs_fonts.js"></script>
   <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>-->
 
-  <script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+  <script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
+  <script src="js/dataTables.editor.min.js"></script>
+
+<script>
   $(function () {
     $('#example2').DataTable({
       "paging": true,
@@ -245,6 +270,43 @@
       "autoWidth": false,
     });
   });
+
+  //Aqui es para la tabla editable de productos
+  editor = new $.fn.dataTable.Editor( {
+        ajax: "controllers/productos.php",
+        table: "#TablaProductos",
+        fields: [ {
+                label: "Nombre:",
+                name: "nombre"
+            }, {
+                label: "Descripcion:",
+                name: "descripcion"
+            }, {
+                label: "Precio:",
+                name: "precio"
+            }, {
+                label: "Existencia:",
+                name: "existencia"
+            }
+        ]
+    } );
+ 
+    $('#TablaProductos').DataTable( {
+        dom: "Bfrtip",
+        ajax: "controllers/productos.php",
+        columns: [
+            { data: "nombre" },
+            { data: "descripcion" },
+            { data: "precio", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) },
+            { data: "existencia" }
+        ],
+        select: true,
+        buttons: [
+            { extend: "create", editor: editor },
+            { extend: "edit",   editor: editor },
+            { extend: "remove", editor: editor }
+        ]
+    } );
 </script>
 
 <script>

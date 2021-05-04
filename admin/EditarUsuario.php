@@ -6,7 +6,7 @@ if (isset($_REQUEST['Guardar'])) {
     $email = mysqli_real_escape_string($con, $_REQUEST['email'] ?? '');
     $pass = md5(mysqli_real_escape_string($con, $_REQUEST['contra'] ?? ''));
     $nombre = mysqli_real_escape_string($con, $_REQUEST['nombre'] ?? '');
-    $id = mysqli_real_escape_string($con, $_REQUEST['id'] ?? '');
+    $id = mysqli_real_escape_string($con, $_REQUEST['Id'] ?? '');
 
     $query = "UPDATE admin SET
         Email='" . $email . "', Password='" . $pass . "',Nombre='" . $nombre . "'
@@ -23,7 +23,7 @@ if (isset($_REQUEST['Guardar'])) {
 <?php
     }
 }
-$id= mysqli_real_escape_string($con,$_REQUEST['id']??'');
+$id= mysqli_real_escape_string($con,$_REQUEST['Id']??'');
 $query="SELECT Id,Email,Password,Nombre from admin where Id='".$id."'; ";
 $res=mysqli_query($con,$query);
 $row=mysqli_fetch_assoc($res);
