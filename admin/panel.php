@@ -233,5 +233,33 @@
   <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+  <script>
+  $(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $(".borrar").click(function (e) { 
+      e.preventDefault();
+      var res=confirm("Realmente te quieres borrar este usuario?");
+      if(res==true){
+        var link=$(this).attr("href");
+        window.location=link;
+      }
+
+    });
+  });
+</script>
+
 </body>
 </html>

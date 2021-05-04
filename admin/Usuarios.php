@@ -1,3 +1,26 @@
+<?php
+  include_once "database.php"; //Conexion con la bd
+  $con = mysqli_connect($host, $user, $pass, $db);
+  if (isset($_REQUEST['IdBorrar'])) 
+  {
+    $id=mysqli_real_escape_string($con, $_REQUEST['IdBorrar']??'');
+    $query="DELETE from admin where Id ='".$id."';";
+    $res = mysqli_query($con, $query);//Obtenemos el resultado del query
+    if ($res) {
+      ?>
+        <div class="alert alert-warning float-right" role="alert">
+          Usuario borrado con exito
+        </div>
+      <?php
+    }else {
+      ?>
+      <div class="alert alert-danger float-right" role="alert">
+        Error al borrar <?php echo mysqli_error($con); ?>
+      </div>
+      <?php
+    }
+  }
+?>
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -34,9 +57,6 @@
                   </thead>
                   <tbody>
                     <?php
-                      //Conexion con la bd
-                      include_once "database.php";
-                      $con = mysqli_connect($host, $user, $pass, $db);
                       $query="SELECT Id, Email, Nombre FROM admin;";
                       $res=mysqli_query($con, $query);//Obtenemos el resultado del query
                       while ($row=mysqli_fetch_assoc($res)) {//Mientras el row contenga registros
@@ -45,8 +65,8 @@
                             <td><?php echo $row['Nombre'];?></td>
                             <td><?php echo $row['Email'];?></td>
                             <td>
-                              <a href="panel.php?modulo=EditarUsuario&id=<?php echo $row['Id']?>" style="margin-right: 5px;"> <i class="fas fa-edit" ></i> </a><!--Puede ser Perfil en lugar de usuario-->
-                              <a href="Usuarios.php?idBorrar=<?php echo $row['Id']?>" class="text-danger"> <i class="fas fa-trash" ></i> </a>
+                              <a href="panel.php?modulo=EditarUsuario&Id=<?php echo $row['Id']?>" style="margin-right: 5px;"> <i class="fas fa-edit" ></i> </a><!--Puede ser Perfil en lugar de usuario-->
+                              <a href="panel.php?modulo=Usuarios&IdBorrar=<?php echo $row['Id'] ?>" class="text-danger borrar"> <i class="fas fa-trash"></i> </a>
                             </td>
                           </tr>
                         <?php
