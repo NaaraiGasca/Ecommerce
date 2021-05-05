@@ -295,10 +295,10 @@
         dom: "Bfrtip",
         ajax: "controllers/productos.php",
         columns: [
-            { data: "nombre" },
-            { data: "descripcion" },
-            { data: "precio", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) },
-            { data: "existencia" }
+            { data: "Nombre" },
+            { data: "Descripcion" },
+            { data: "Precio", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) },
+            { data: "Existencia" }
         ],
         select: true,
         buttons: [

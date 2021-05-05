@@ -29,23 +29,12 @@ Editor::inst( $db, 'productos' )
 			->validator( Validate::notEmpty( ValidateOptions::inst()
 				->message( 'Se require una descripcion del producto' )	
 			) ),
-		Field::inst( 'position' ),
-		Field::inst( 'email' )
-			->validator( Validate::email( ValidateOptions::inst()
-				->message( 'Please enter an e-mail address' )	
-			) ),
-		Field::inst( 'office' ),
-		Field::inst( 'extn' ),
-		Field::inst( 'age' )
+		Field::inst( 'Precio' )
 			->validator( Validate::numeric() )
 			->setFormatter( Format::ifEmpty(null) ),
-		Field::inst( 'salary' )
+		Field::inst( 'Existencia' )
 			->validator( Validate::numeric() )
-			->setFormatter( Format::ifEmpty(null) ),
-		Field::inst( 'start_date' )
-			->validator( Validate::dateFormat( 'Y-m-d' ) )
-			->getFormatter( Format::dateSqlToFormat( 'Y-m-d' ) )
-			->setFormatter( Format::dateFormatToSql('Y-m-d' ) )
+			->setFormatter( Format::ifEmpty(null) )
 	)
 	->debug(true)
 	->process( $_POST )
