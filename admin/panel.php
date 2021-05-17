@@ -196,10 +196,6 @@
       {
         include_once "EditarUsuario.php";
       }
-      if ($modulo=="Productos") 
-      {
-        include_once "Productos.php";
-      }
     ?>
   <!-- /.control-sidebar -->
 </div>
@@ -273,7 +269,7 @@
 
   //Aqui es para la tabla editable de productos
   editor = new $.fn.dataTable.Editor( {
-        ajax: "controllers/productos.php",
+        ajax: "controllers/producto.php",
         table: "#TablaProductos",
         fields: [ {
                 label: "Nombre:",
@@ -293,7 +289,7 @@
  
     $('#TablaProductos').DataTable( {
         dom: "Bfrtip",
-        ajax: "controllers/productos.php",
+        ajax: "controllers/producto.php",
         columns: [
             { data: "Nombre" },
             { data: "Descripcion" },
